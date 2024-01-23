@@ -1,21 +1,22 @@
 # TODO: опишите необходимые обработчики, рекомендуется использовать generics APIView классы:
 # TODO: ListCreateAPIView, RetrieveUpdateAPIView, CreateAPIView
-from django.shortcuts import redirect
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateAPIView, CreateAPIView
-
 from measurement.models import Sensor, Measurement
-from measurement.serializers import SensorDetailSerializer, MeasurementSerializer
+from measurement.serializers import SensorNoMeasureSerializer, AddMeasurementSerializer, SensorSerializer
 
-def sensor_index(request):
-    return redirect('sensors')
-class SensorList(ListCreateAPIView):
+
+class CreateAndGetSensors(ListCreateAPIView):
+
     queryset = Sensor.objects.all()
-    serializer_class = SensorDetailSerializer
+    serializer_class = SensorNoMeasureSerializer
 
-class SensorUpdate(RetrieveUpdateAPIView):
+
+class GetInfoAndUpdateSensor(RetrieveUpdateAPIView):
+
     queryset = Sensor.objects.all()
-    serializer_class = SensorDetailSerializer
+    serializer_class = SensorSerializer
 
-class MeasurementCreate(CreateAPIView):
+
+class AddMeasurements(CreateAPIView):
     queryset = Measurement.objects.all()
-    serializer_class = MeasurementSerializer
+    serializer_class = AddMeasurementSerializer
